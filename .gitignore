@@ -1,0 +1,9 @@
+config/cookies.json
+config/config.yaml
+config/seen_state.json
+.claude/
+__pycache__/
+*.pyc
+.DS_Store
+.venv/
+venv/

@@ -1,0 +1,40 @@
+# Seat/inventory availability monitor - example configuration.
+# Copy to config.yaml and fill in real values for your target site - config.yaml
+# itself is gitignored since it ends up holding session cookies and bot tokens.
+
+target:
+  # The JSON/JSONP endpoint that returns per-section (or per-SKU) remaining-count data.
+  # Inspect your target site's Network tab to find the equivalent request.
+  summary_api_url: "https://example-ticketing.com/api/product/block/summary.json?v=1&callback=exampleCallback"
+  # Extra POST body fields the endpoint expects (varies per site).
+  summary_post_data:
+    productId: "REPLACE_ME"
+    scheduleId: "REPLACE_ME"
+  # Page to open in the alert link so you can jump straight there and confirm.
+  seat_map_page_url: "https://example-ticketing.com/reservation/seat-select?id=REPLACE_ME"
+  # Where the browser opens on startup in --browser mode, before you log in/navigate manually.
+  start_url: "https://example-ticketing.com/"
+  # Headers some sites require on the summary request - grab from the real browser request.
+  referer: "https://example-ticketing.com/reservation/seat-select?id=REPLACE_ME"
+  origin: "https://example-ticketing.com"
+  # Used by login_helper.py (non-browser-mode cookie export).
+  login_url: "https://example-ticketing.com/login"
+  cookie_domain: "example-ticketing.com"
+  cookies_file: "config/cookies.json"
+  user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+  request_timeout: 10
+
+polling:
+  min_interval_sec: 3
+  max_interval_sec: 5
+
+filters:
+  # Sections/SKUs starting with this prefix are ignored. Empty string disables filtering.
+  ignore_prefix: "4"
+
+telegram:
+  bot_token: "REPLACE_ME"
+  chat_id: "REPLACE_ME"
+
+state:
+  seen_file: "config/seen_state.json"
